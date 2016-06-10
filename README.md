@@ -25,6 +25,7 @@ This library provides support for the HGS2561281 256x128 display which uses two 
 
 # Example code
 ``` C++
+#include <SPI.h> // Sometimes Arduino and Energia forgets to include SPI dir if this line is not present
 #include <HGS2561281.h>
 
 // Instance to our LCD
