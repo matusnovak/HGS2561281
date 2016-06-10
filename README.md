@@ -1,6 +1,8 @@
 # HGS2561281 OLED 256x128 Display library
 (For Arduino and Energia)
 
+This library is adaptation from <https://github.com/MartyMacGyver/OLED_SSD1322>
+
 This library provides support for the HGS2561281 256x128 display which uses two SSD1322 chips to control two 256x64 OLED displays. Currently only SPI is supported. This library also contains an application to convert images to 4-bit image useable by this display. The application can also generate a font. The application can be found under ImgToOledBitmap/release/ folder.
 
 # Features
