@@ -57,6 +57,9 @@ void loop(){
 ```
 
 # How to display images
+
+(An example is provided in the example folder)
+
 First we need to generate 4-bit image... for that we need the convertor!
 
 1. Find "ImgToOledBitmap/release" folder inside the library folder.
@@ -68,7 +71,7 @@ To generate 4-bit image with:
 2. Use CD command to go to the directory where `ImgToOledBitmap.exe` is located
 3. Run: `ImgToOledBitmap.exe -i path_to_image/your_image_name.png` (notice the -i option!)
 4. A new file will be generated `your_image_name-oledimg.txt` containing 4-bit pixel array
-5. Copy this pixel array `stati const char your_image_name_pixels[] = { ... };` found in the generated txt file to your Arduino/Energia sketch.
+5. Copy this pixel array `static const char your_image_name_pixels[] = { ... };` found in the generated txt file to your Arduino/Energia sketch.
 6. Use `lcd.drawPixels(posX, posY, width, height, pointer to pixel array)` function to draw the pixels. Note that the width and height are the dimensions of the image. For example, if the original image dimensions are 128x128, the pixel array will be size of 128x128 / 2 bytes, then to draw the image at [0, 0], use it like this: `lcd.drawPixels(0, 0, 128, 128, your_image_name_pixels);`
 
 Supported image formats: PNG, BMP, PBM, TGA, TIFF
@@ -77,6 +80,9 @@ Supported pixel formats: 8bpp (Grayscale), 24bpp (RGB), 32bpp (RGBA)
 RGB/RGBA images will be automatically converted to grayscale
 
 # How to display a string with a custom font
+
+(An example is provided in the example folder)
+
 This process works almost the same as generating an image... First, you need to generate an image containing all characters of your font. (Google "bitmap font"). This image needs to be 16x16 or 16x8 grid of ASCII characters. The characters must start from 0 (left top) up to 255 (bottom right) and needs to be placed in the grid. The generated bitmap dimensions need to be in power of two! (For example, 128x128, 256x256, 512x512).
 
 To generate 4-bit pixel array out of bitmap font:
@@ -85,6 +91,6 @@ To generate 4-bit pixel array out of bitmap font:
 2. Use CD command to go to the directory where `ImgToOledBitmap.exe` is located
 3. Run: `ImgToOledBitmap.exe -f path_to_font/your_font.png` (notice the -f option!)
 4. A new file will be generated `your_font-oledfont.txt` containing 4-bit pixel array
-5. Copy this pixel array `stati const char your_font_pixels[] = { ... };` found in the generated txt file to your Arduino/Energia sketch.
+5. Copy this pixel array `static const char your_font_font[] = { ... };` found in the generated txt file to your Arduino/Energia sketch.
 6. Use `lcd.drawString(posX, posY, fontPixels, charWidth, string)` to draw a string. Note that the "charWidth" is the width of a single character (width_of_your_bitmap_font / 16 = char_width, for example, if you are converting a 128x128 bitmap font, then the charWidth is 8 pixels). 
 
