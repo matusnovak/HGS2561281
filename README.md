@@ -65,8 +65,8 @@ First we need to generate 4-bit image... for that we need the convertor!
 To generate 4-bit image with:
 
 1. Open Command Line Terminal (CMD)
-2. Use CD command to go to the directory where your image is located
-3. Run: `path_to_ImgToOledBitmap/release/ImgToOledBitmap.exe -i your_image_name.png` (notice the -i option!)
+2. Use CD command to go to the directory where `ImgToOledBitmap.exe` is located
+3. Run: `ImgToOledBitmap.exe -i path_to_image/your_image_name.png` (notice the -i option!)
 4. A new file will be generated `your_image_name-oledimg.txt` containing 4-bit pixel array
 5. Copy this pixel array `stati const char your_image_name_pixels[] = { ... };` found in the generated txt file to your Arduino/Energia sketch.
 6. Use `lcd.drawPixels(posX, posY, width, height, pointer to pixel array)` function to draw the pixels. Note that the width and height are the dimensions of the image. For example, if the original image dimensions are 128x128, the pixel array will be size of 128x128 / 2 bytes, then to draw the image at [0, 0], use it like this: `lcd.drawPixels(0, 0, 128, 128, your_image_name_pixels);`
@@ -82,8 +82,8 @@ This process works almost the same as generating an image... First, you need to 
 To generate 4-bit pixel array out of bitmap font:
 
 1. Open Command Line Terminal (CMD)
-2. Use CD command to go to the directory where your image is located
-3. Run: `path_to_ImgToOledBitmap/release/ImgToOledBitmap.exe -f your_font.png` (notice the -f option!)
+2. Use CD command to go to the directory where `ImgToOledBitmap.exe` is located
+3. Run: `ImgToOledBitmap.exe -f path_to_font/your_font.png` (notice the -f option!)
 4. A new file will be generated `your_font-oledfont.txt` containing 4-bit pixel array
 5. Copy this pixel array `stati const char your_font_pixels[] = { ... };` found in the generated txt file to your Arduino/Energia sketch.
 6. Use `lcd.drawString(posX, posY, fontPixels, charWidth, string)` to draw a string. Note that the "charWidth" is the width of a single character (width_of_your_bitmap_font / 16 = char_width, for example, if you are converting a 128x128 bitmap font, then the charWidth is 8 pixels). 
