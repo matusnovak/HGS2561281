@@ -61,6 +61,70 @@ void loop(){
 
 # How to display images
 
+To display an image, you will need to convert your image to a grayscale 4-bit `unsigned char` array. Each `unsigned char` must contain two pixels. You can use to following Python script to convert any image to a grayscale 4-bit array that will appear in the stdout.
+
+```python
+# Install PIL as:
+# python3 -m pip install Pillow
+
+from PIL import Image
+import sys
+
+HEX = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']
+
+def main():
+    if len(sys.argv) != 2:
+        print('Invalid number of arguments!')
+        print(f'Usage: {sys.argv[0]} input.png')
+        sys.exit(1)
+        
+    img = Image.open(sys.argv[1]).convert('L')
+    pixels = img.load()
+    width, height = img.size
+
+    if width % 2 != 0:
+        print('Image width must be multiple of 2')
+
+    for y in range(0, height):
+        for x in range(0, width, 2):
+            a = pixels[x, y] >> 4
+            b = pixels[x + 1, y] >> 4
+            print(f'0x{HEX[a]}{HEX[b]}, ', end='')
+
+        print('')
+
+if __name__ == "__main__":
+    main()
+```
+
+Usage of above script:
+
+```
+> python convert_to_4bit.py letter_a.png > output.txt
+```
+
+Then, define your image in your source code as:
+
+```cpp
+// Assuming the image is 16x16 pixels in size
+// sizeof = width * height / 2
+// We divide by 2 because one byte contains two 4-bit pixels!
+static const unsigned char pixels[ 16 * 16 / 2 ] = {
+    // the stdout from the python script above
+};
+```
+
+And render your image as:
+
+```cpp
+// Assuming the image is 16x16 pixels in size
+lcd.drawPixels(posX, posY, 16, 16, pixels)
+```
+
+You can find more information in this issue: [HGS2561281/issues/2](https://github.com/matusnovak/HGS2561281/issues/2)
+
+# How to display images (outdated)
+
 (An example is provided in the example folder)
 
 First we need to generate 4-bit image... for that we need the convertor!
@@ -82,7 +146,7 @@ Supported pixel formats: 8bpp (Grayscale), 24bpp (RGB), 32bpp (RGBA)
 
 RGB/RGBA images will be automatically converted to grayscale
 
-# How to display a string with a custom font
+# How to display a string with a custom font (outdated)
 
 (An example is provided in the example folder)
 
